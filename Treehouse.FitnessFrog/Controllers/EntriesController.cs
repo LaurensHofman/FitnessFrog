@@ -17,6 +17,7 @@ namespace Treehouse.FitnessFrog.Controllers
         {
             Console.Beep();
             Console.Beep();
+            Console.Beep();
             _entriesRepository = new EntriesRepository();
         }
 
