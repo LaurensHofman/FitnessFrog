@@ -15,9 +15,6 @@ namespace Treehouse.FitnessFrog.Controllers
 
         public EntriesController()
         {
-            Console.Beep();
-            Console.Beep();
-            Console.Beep();
             _entriesRepository = new EntriesRepository();
         }
 
@@ -44,6 +41,14 @@ namespace Treehouse.FitnessFrog.Controllers
 
         public ActionResult Add()
         {
+            return View();
+        }
+
+        [ActionName("Add"), HttpPost]
+        public ActionResult AddPost()
+        {
+
+
             return View();
         }
 
