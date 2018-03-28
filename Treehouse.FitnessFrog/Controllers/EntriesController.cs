@@ -42,6 +42,7 @@ namespace Treehouse.FitnessFrog.Controllers
         public ActionResult Add()
         {
             return View();
+            Console.Beep();
         }
 
         [HttpPost]
