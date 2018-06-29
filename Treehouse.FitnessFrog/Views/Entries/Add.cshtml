@@ -1,11 +1,17 @@
 ﻿
 @model Treehouse.FitnessFrog.Models.Entry
+@using Treehouse.FitnessFrog.Models
 
 @{
     ViewBag.Title = "Add Entry";
+
+
 }
 
 <h2>@ViewBag.Title</h2>
+
+@*als je true meegeeft met de validationsummary, neemt ie enkel global error messages*@
+@Html.ValidationSummary(@*true*@ "The following errors were found: ", new { @class = "alert alert-danger" })
 
 @using (Html.BeginForm())
 {
@@ -14,29 +20,42 @@
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(m => m.Date, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.Date, "{0:d}", new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Date, "{0:d}", new { @class = "form-control datepicker" })
             </div>
 
-            <main></main>
-            
             <div class="form-group">
                 @Html.LabelFor(m => m.ActivityId, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.ActivityId, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.ActivityId,
+                    (SelectList)ViewBag.ActivitiesSelectListItems,
+                    "", new { @class = "form-control" })
+                @*@Html.ValidationMessageFor(m => m.ActivityId)*@
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Duration, new { @class = "control-label" })
                 @Html.TextBoxFor(m => m.Duration, new { @class = "form-control" })
+                @*@Html.ValidationMessageFor(m => m.Duration)*@
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Intensity, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.Intensity, new { @class = "form-control" })
+
+                <div>
+                    @foreach (var e in Enum.GetValues(typeof(Entry.IntensityLevel)))
+                    {
+                        <label class="radio-inline">
+                            @Html.RadioButtonFor(m => m.Intensity, e) @e
+                        </label>
+                    }
+                </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.Exclude, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.Exclude, new { @class = "form-control" })
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.Exclude) @Html.DisplayNameFor(m => m.Exclude)
+                    </label>
+                </div>
             </div>
 
         </div>
@@ -65,6 +84,6 @@
     </div>
 
 
-    
+
 }
 
